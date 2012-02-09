@@ -1,0 +1,22 @@
+<ETUE-Config>
+	<Organization>Example Code</Organization>
+	<Version-of-File>0.5</Version-of-File>
+	<ETUE-Version-Created-In>0.01</ETUE-Version-Created-In>
+	<Software>
+        <Package>
+            <UID>0000001</UID>
+            <Title>Calculator</Title>
+            <Description>Calculator App</Description>
+            <Basic>
+                <Script>
+                    calc.exe
+                </Script>
+            </Basic>
+            <Advanced>
+                <Script>
+                    calc.exe
+                </Script>
+            </Advanced>
+        </Package>
+	</Software>
+</ETUE-Config>
