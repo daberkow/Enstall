@@ -8,8 +8,7 @@
 			include("./corepage.php");
 			
 			php_draw::page_header();
-			php_draw::page_contentarea_open();
-			php_draw::page_contentarea_close();
+			php_draw::page_contentarea();
 			php_draw::page_footer();
 		?>
 		</div>
