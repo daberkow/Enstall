@@ -19,7 +19,8 @@
 				{
 					case "2":
 						//software pacakge
-						data = "<div id='label' style='height: 25px;'>Title: <input class='input_box' type='text' name='Pacakge_Title' id='Pacakge_Title'/></div>\
+						data = "<div id='label' style='height: 25px;'>Title: <input class='input_box' type='text' name='Package_Title' id='Package_Title'/></div>\
+						<div id='label' style='height: 25px;'>Icon(file location): <input class='input_box' type='text' name='Package_Icon' id='Package_Icon' value='./icons/1.png'/></div>\
 						<div id='label'>Description: <textarea name='Package_Description' id='Package_Description'></textarea></div>\
 						<div id='label'>Basic Script: <textarea name='Package_Basic_Script' id='Package_Basic_Script'></textarea></div>\
 						<div id='label'>Advanced Script: <textarea name='Package_Advanced_Script' id='Package_Advanced_Script'></textarea></div>\

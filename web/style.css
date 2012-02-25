@@ -1,5 +1,6 @@
 body {
-	background: gray;
+	background-repeat: repeat;
+	background-image: url(./background.png);
 }
 #main_page {
 	background: white;
@@ -14,7 +15,13 @@ body {
 
 #page_header {
 	height: 75px;
-	background: #a1a1a1;
+	background: #999999;
+	border-color: black;
+	border-bottom-width: 1px;
+	border-top-width: 0px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-style: solid;
 }
 
 #page_header h2 {
@@ -22,7 +29,7 @@ body {
 	font-size: 50px;
 	font-family: cursive;
 	padding: 0px;
-	color: black;
+	color: #42568C;
 	text-decoration: none;
 	display:inline;
 }
@@ -41,19 +48,52 @@ h3 {
 }
 
 #page_sidebar {
+	border-color: black;
+	border-right-width: 0px;
+	border-bottom-width: 1px;
+	border-top-width: 0px;
+	border-style: solid;
+	border-left-width: 1px;;
 	float: right;
 	width: 100px;
 	margin-left: auto;
 	margin-right: 0px;
-	background: #a1a1a1;
+	background: #999999;
 	width: 20%;
 	height: 300px;
 	border-bottom-left-radius: 5px;
 }
 
+#package_list li{
+	display: inline;
+}
+
+#package_line {
+	border-style: solid;
+	border-right-width: 0px;
+	border-left-width: 0px;
+	border-bottom-width: 1px;
+	border-top-width: 1px;
+	height: 60px;
+	width: 100%;
+	
+}
+
+#package_icon {
+	width: 50px;
+	display: inline;
+}
+
+#package_title {
+	height: 40%;
+	margin: 0px;
+	font-weight: bold;
+	font-size: 18px;
+}
+
 #page_footer {
 	width: 100%;
-	background: #a1a1a1;
+	background: #999999;
 	height: 100px;
 }
 
@@ -64,3 +104,4 @@ h3 {
 #page_footer_link {
 	padding-left: 25px;
 }
+
