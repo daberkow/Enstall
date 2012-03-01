@@ -1,0 +1,27 @@
+	
+#label {
+	text-align: left;
+	height: 250px;
+}
+#options {
+	
+	width: 700px;
+}
+
+#label input, textarea {
+	float: right;
+	position: relative;
+	display: inline;
+	right: 10%;
+	width: 60%;
+	height: 80%;
+}
+
+#formz {
+	width: 80%;
+	display: inline;
+}
+
+form {
+	width: 80%;
+}
