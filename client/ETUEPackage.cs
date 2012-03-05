@@ -17,6 +17,8 @@ namespace ETUEtest
         private String fileVersion = "";        //  Package version
         private String versionCreated = "";     //  ETUEVersion this package .xml was created in
 
+        private String packageTitle = "";       //  The package title listed on the Enstall package list site
+
         //------< Constructors >------//
 
         //Constructs a default package
@@ -29,6 +31,12 @@ namespace ETUEtest
         public ETUEPackage(String url)
         {
             copy( ETUEReader.parse(url) );
+        }
+
+        //Constructs a reader with the information from the .xml at url, and packageTitle pTitle
+        public ETUEPackage(String url, String pTitle) : this(url)
+        {
+            this.packageTitle = pTitle;
         }
 
         public ETUEPackage(ETUEPackage package)
@@ -93,10 +101,16 @@ namespace ETUEtest
             return this.fileVersion;
         }
 
-        //Returns the ETUE version this
+        //Returns the ETUE version 
         public String getVersionCreated()
         {
             return this.versionCreated;
+        }
+
+        //Returns the package title
+        public String getPackageTitle()
+        {
+            return this.packageTitle;
         }
 
         //------< Mutators >------//
@@ -147,6 +161,12 @@ namespace ETUEtest
         public void setVersionCreated(String versionCreated)
         {
             this.versionCreated = versionCreated;
+        }
+
+        //Sets the package title
+        public void setPackageTitle(String packageTitle)
+        {
+            this.packageTitle = packageTitle;
         }
 
         //Prints the info of the package

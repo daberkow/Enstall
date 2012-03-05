@@ -13,7 +13,6 @@ namespace ETUEtest
         {
             using (XmlReader reader = XmlReader.Create(url))
             {
-
                 ETUEPackage pack = new ETUEPackage();
                 //Do some basic error checking, make sure this xml is 
                 // of the right format
