@@ -4,6 +4,9 @@
  */
 package printerinstaller;
 
+import java.awt.Component;
+import java.awt.FileDialog;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -12,6 +15,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TreeSet;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileView;
+import javax.swing.plaf.FileChooserUI;
+import javax.swing.plaf.basic.BasicFileChooserUI;
 
 /**
  *
@@ -19,11 +27,14 @@ import java.util.TreeSet;
  */
 public class Manager extends javax.swing.JFrame {
     printercore Core_Code = new printercore();
+    List<PrintServer> Server_stats = new ArrayList<PrintServer>();
+    static Component parent = null;
     /**
      * Creates new form Manager
      */
     public Manager() {
         initComponents();
+        parent = this;
     }
 
     /**
@@ -35,32 +46,46 @@ public class Manager extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         Tabbed_Content = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        Install_Tab_Panel = new javax.swing.JPanel();
+        Printers_Avaible_label = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         printer_display_list = new javax.swing.JList();
         Install_button = new javax.swing.JButton();
         Scan_Button = new javax.swing.JButton();
         temp_string = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
+        Export_button = new javax.swing.JButton();
+        Repair_Tab_Panel = new javax.swing.JPanel();
+        Check_System_Button = new javax.swing.JButton();
+        Check_System_Label = new javax.swing.JLabel();
+        Scanning_Label = new javax.swing.JLabel();
+        Scan_Installed_Printers_Progress_label = new javax.swing.JLabel();
+        Scan_Printer_Progress = new javax.swing.JProgressBar();
+        Fixes_Label = new javax.swing.JLabel();
+        Reconnect_Server_Label = new javax.swing.JLabel();
+        Reconnect_Server_Progress = new javax.swing.JProgressBar();
+        Restart_Printer_Label = new javax.swing.JLabel();
+        Restart_service_Progress = new javax.swing.JProgressBar();
+        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jProgressBar2 = new javax.swing.JProgressBar();
-        jLabel7 = new javax.swing.JLabel();
-        jProgressBar3 = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(0, 0, 620, 450));
         setName("Printer Manager");
-        setPreferredSize(new java.awt.Dimension(600, 400));
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("Printers Available:");
+        Tabbed_Content.setDoubleBuffered(true);
+        Tabbed_Content.setMaximumSize(new java.awt.Dimension(1500, 1000));
+        Tabbed_Content.setMinimumSize(new java.awt.Dimension(600, 400));
+        Tabbed_Content.setPreferredSize(new java.awt.Dimension(600, 400));
+
+        Install_Tab_Panel.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        Install_Tab_Panel.setMaximumSize(new java.awt.Dimension(1500, 975));
+        Install_Tab_Panel.setMinimumSize(new java.awt.Dimension(500, 325));
+        Install_Tab_Panel.setPreferredSize(new java.awt.Dimension(580, 380));
+
+        Printers_Avaible_label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Printers_Avaible_label.setText("Printers Available:");
 
         printer_display_list.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         printer_display_list.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -80,134 +105,165 @@ public class Manager extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        Export_button.setFont(new java.awt.Font("Tahoma", 0, 8)); // NOI18N
+        Export_button.setText("Export");
+        Export_button.setEnabled(false);
+        Export_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Export_buttonActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout Install_Tab_PanelLayout = new org.jdesktop.layout.GroupLayout(Install_Tab_Panel);
+        Install_Tab_Panel.setLayout(Install_Tab_PanelLayout);
+        Install_Tab_PanelLayout.setHorizontalGroup(
+            Install_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(Install_Tab_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(temp_string))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Scan_Button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Install_button)))
+                .add(Install_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(Install_Tab_PanelLayout.createSequentialGroup()
+                        .add(Printers_Avaible_label)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(temp_string))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, Install_Tab_PanelLayout.createSequentialGroup()
+                        .add(Scan_Button, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 72, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(Export_button, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(Install_button)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        Install_Tab_PanelLayout.setVerticalGroup(
+            Install_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(Install_Tab_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(temp_string))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 237, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Install_button)
-                    .addComponent(Scan_Button))
-                .addGap(7, 7, 7))
+                .add(Install_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(Printers_Avaible_label)
+                    .add(temp_string))
+                .add(18, 18, 18)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(Install_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(Install_button)
+                    .add(Scan_Button)
+                    .add(Export_button, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 19, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
-        jLabel1.getAccessibleContext().setAccessibleName("Printers Available");
+        Printers_Avaible_label.getAccessibleContext().setAccessibleName("Printers Available");
 
-        Tabbed_Content.addTab("Install", jPanel1);
+        Tabbed_Content.addTab("Install", Install_Tab_Panel);
 
-        jButton2.setText("Begin Scan");
+        Check_System_Button.setText("Begin Scan");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Check System for Printing Errors:");
+        Check_System_Label.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        Check_System_Label.setText("Check System for Printing Errors:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel3.setText("Scanning:");
+        Scanning_Label.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Scanning_Label.setText("Scanning:");
 
-        jLabel4.setText("Scan installed printers, then check connections");
+        Scan_Installed_Printers_Progress_label.setText("Scan installed printers, then check connections");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel5.setText("Fixes:");
+        Fixes_Label.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        Fixes_Label.setText("Fixes:");
 
-        jLabel6.setText("Reconnect to servers");
+        Reconnect_Server_Label.setText("Reconnect to servers");
 
-        jLabel7.setText("Restart printer service");
+        Restart_Printer_Label.setText("Restart printer service");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        org.jdesktop.layout.GroupLayout Repair_Tab_PanelLayout = new org.jdesktop.layout.GroupLayout(Repair_Tab_Panel);
+        Repair_Tab_Panel.setLayout(Repair_Tab_PanelLayout);
+        Repair_Tab_PanelLayout.setHorizontalGroup(
+            Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(Repair_Tab_PanelLayout.createSequentialGroup()
+                .add(Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(Repair_Tab_PanelLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton2))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel6))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                            .addComponent(jProgressBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jProgressBar3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .add(Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, Repair_Tab_PanelLayout.createSequentialGroup()
+                                .add(0, 0, Short.MAX_VALUE)
+                                .add(Check_System_Button))
+                            .add(Repair_Tab_PanelLayout.createSequentialGroup()
+                                .add(Check_System_Label)
+                                .add(0, 0, Short.MAX_VALUE))))
+                    .add(Repair_Tab_PanelLayout.createSequentialGroup()
+                        .add(42, 42, 42)
+                        .add(Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(Fixes_Label)
+                            .add(Scanning_Label)
+                            .add(Repair_Tab_PanelLayout.createSequentialGroup()
+                                .add(10, 10, 10)
+                                .add(Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(Scan_Installed_Printers_Progress_label)
+                                    .add(Restart_Printer_Label)
+                                    .add(Reconnect_Server_Label))))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 134, Short.MAX_VALUE)
+                        .add(Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(Scan_Printer_Progress, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                            .add(Reconnect_Server_Progress, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(Restart_service_Progress, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        Repair_Tab_PanelLayout.setVerticalGroup(
+            Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, Repair_Tab_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addGap(11, 11, 11)
-                        .addComponent(jLabel4))
-                    .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jProgressBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jProgressBar3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .add(Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(Repair_Tab_PanelLayout.createSequentialGroup()
+                        .add(Check_System_Label)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(Scanning_Label)
+                        .add(11, 11, 11)
+                        .add(Scan_Installed_Printers_Progress_label))
+                    .add(Scan_Printer_Progress, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(Fixes_Label)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(Reconnect_Server_Label)
+                    .add(Reconnect_Server_Progress, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(Repair_Tab_PanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(Restart_Printer_Label)
+                    .add(Restart_service_Progress, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 190, Short.MAX_VALUE)
+                .add(Check_System_Button)
                 .addContainerGap())
         );
 
-        Tabbed_Content.addTab("Repair", jPanel2);
+        Tabbed_Content.addTab("Repair", Repair_Tab_Panel);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        jLabel1.setFont(jLabel1.getFont().deriveFont((jLabel1.getFont().getStyle() | java.awt.Font.ITALIC), jLabel1.getFont().getSize()+3));
+        jLabel1.setText("Enstall");
+
+        jLabel2.setText("A RCOS Project");
+
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(Tabbed_Content, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE))
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabel2)
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, Tabbed_Content, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Tabbed_Content, javax.swing.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(Tabbed_Content, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(jLabel2))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         Tabbed_Content.getAccessibleContext().setAccessibleName("Printers Window");
@@ -215,12 +271,18 @@ public class Manager extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * This function does the scans, contacts the servers and gets all the data. 
+     * One problem I ran into is that some servers can take a while to respond
+     * due to network speed or server speed. To fix this I get a list and I 
+     * precache a lot of the data, then the user can scan for new printers if they want.
+     * @param evt 
+     */
     private void Scan_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Scan_ButtonActionPerformed
         // TODO add your handling code here:
         long start = System.currentTimeMillis();
-        
-        printercore Core_Code = new printercore();
-        List<PrintServer> Server_stats = new ArrayList<PrintServer>();
+
+        Server_stats = new ArrayList<PrintServer>();
         String[] Enviroments = Core_Code.scan_enviroment();
         java.net.InetAddress[] Server_Addresses = Core_Code.get_servers(Enviroments);
         boolean [] Matching_Status = new boolean[Server_Addresses.length];
@@ -246,32 +308,63 @@ public class Manager extends javax.swing.JFrame {
             }
             Server_stats.add(temp_server);
             System.out.println("Add Server: " + (System.currentTimeMillis() - start));
-            //stopped here type time is still high
         }
-        
         
         start = System.currentTimeMillis();
         PrintServer[] listized_Server_stats = Server_stats.toArray(new PrintServer[0]);
-        Server_stats = null; //leave a list for a "faster" array, this is java so faster still makes a i7 look like a 386
+        
         
         java.util.Set<String> Set_Print = new TreeSet<String>();
-        List<String> List_Print = new ArrayList<String>();
-        String[] Array_Print = new String[1];
         for (int i = 0; i < listized_Server_stats.length; i++)
         {
             Set_Print.addAll(Arrays.asList(listized_Server_stats[i].get_Printers()) ); 
         }
         
+        List<String> List_print = Arrays.asList(Set_Print.toArray(new String[0]));
+        
+        java.util.Collections.sort(List_print); 
        
         System.out.println("Final Sort: " + (System.currentTimeMillis() - start));
-        printer_display_list.setListData(Set_Print.toArray(new String[0]));
+        printer_display_list.setListData(List_print.toArray(new String[0]));
+        Export_button.setEnabled(true);
     }//GEN-LAST:event_Scan_ButtonActionPerformed
 
+    /**
+     * Quick Check to see if we should allow the isntall button
+     * @param evt 
+     */
     private void printer_display_listMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printer_display_listMouseClicked
         allow_print_install();
         // TODO add your handling code here:
     }//GEN-LAST:event_printer_display_listMouseClicked
 
+    /**
+     * This will allow a export so that the file will can sit on a server or localy 
+     * for precaching.
+     * @param evt 
+     */
+    
+    private void Export_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Export_buttonActionPerformed
+        // TODO add your handling code here:
+        if (Server_stats.size() > 0)
+        {
+            javax.swing.filechooser.FileNameExtensionFilter filter = new javax.swing.filechooser.FileNameExtensionFilter(
+        "TXT File", "txt");
+            jFileChooser1.setFileFilter(filter);
+            jFileChooser1.showSaveDialog(parent);
+            java.io.File Save_File = jFileChooser1.getSelectedFile();
+            if (Save_File.canWrite())
+            {
+               
+            }
+            
+                    
+        }
+    }//GEN-LAST:event_Export_buttonActionPerformed
+
+    /**
+     * This really enables the button
+     */
     public void allow_print_install()
     {
         if (printer_display_list.getSelectedValues().length > 0)
@@ -282,6 +375,9 @@ public class Manager extends javax.swing.JFrame {
             Install_button.setEnabled(false);
         }
     }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -324,24 +420,28 @@ public class Manager extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Install_button;
-    private javax.swing.JButton Scan_Button;
-    private javax.swing.JTabbedPane Tabbed_Content;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JProgressBar jProgressBar2;
-    private javax.swing.JProgressBar jProgressBar3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList printer_display_list;
-    private javax.swing.JLabel temp_string;
+    javax.swing.JButton Check_System_Button;
+    javax.swing.JLabel Check_System_Label;
+    javax.swing.JButton Export_button;
+    javax.swing.JLabel Fixes_Label;
+    javax.swing.JPanel Install_Tab_Panel;
+    javax.swing.JButton Install_button;
+    javax.swing.JLabel Printers_Avaible_label;
+    javax.swing.JLabel Reconnect_Server_Label;
+    javax.swing.JProgressBar Reconnect_Server_Progress;
+    javax.swing.JPanel Repair_Tab_Panel;
+    javax.swing.JLabel Restart_Printer_Label;
+    javax.swing.JProgressBar Restart_service_Progress;
+    javax.swing.JButton Scan_Button;
+    javax.swing.JLabel Scan_Installed_Printers_Progress_label;
+    javax.swing.JProgressBar Scan_Printer_Progress;
+    javax.swing.JLabel Scanning_Label;
+    javax.swing.JTabbedPane Tabbed_Content;
+    javax.swing.JFileChooser jFileChooser1;
+    javax.swing.JLabel jLabel1;
+    javax.swing.JLabel jLabel2;
+    javax.swing.JScrollPane jScrollPane1;
+    javax.swing.JList printer_display_list;
+    javax.swing.JLabel temp_string;
     // End of variables declaration//GEN-END:variables
 }

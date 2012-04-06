@@ -17,6 +17,28 @@ public class PrinterInstaller {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        String WRITE_BUFFER = "/BUFFER_START/                            /BUFFER_END/";
+        
+        //This allows a program that is writing to buffer
+        WRITE_BUFFER = WRITE_BUFFER.substring(0, 42);
+        WRITE_BUFFER = WRITE_BUFFER.substring(14, WRITE_BUFFER.length() - 1);
+        String Final_buffer = "";
+        for (int i = 0; i < WRITE_BUFFER.length(); i++)
+        {
+            if(WRITE_BUFFER.charAt(i) != ' ')
+            {
+                Final_buffer += WRITE_BUFFER.charAt(i);
+            }
+        }
+        
+        if (Final_buffer.length() != 0)
+        {
+            //System.out.println("NOT BLANK");
+        }else{
+            //System.out.println("BLANK");
+        }
+        
         if(args.length > 0)
         { //varible was passed
         
