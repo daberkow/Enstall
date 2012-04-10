@@ -141,7 +141,7 @@ class database_helper {
 				array_push($temp_array, $row['Software_Version']);		//6
 				array_push($temp_array, $row['Package_Icon']);			//7
 				
-				array_push($result_array, $temp_array);
+				$result_array = $temp_array;
 			}
 		}
 		return $result_array;

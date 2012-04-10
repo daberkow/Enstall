@@ -15,6 +15,24 @@
 			if(isset($_REQUEST['id']))
 			{
 				//select a individual package
+				database_helper::db_connect();
+				$row_item = database_helper::db_get_package($_REQUEST['id']);
+				
+				
+				echo "<div id='package_table'>
+							<div class='icon'>
+								<a href='" . general_data::get_root()  . "/packages.php?id=$row_item[0]'><img src='" . general_data::get_root() . "$row_item[7]' alt='$row_item[1] Icon' height='100' width='100' /></a>
+							</div>
+							<div class='package_text' style='height: 200px;'>
+									<p class='package_title'><a href='" . general_data::get_root() . "/packages.php?id=$row_item[0]'> $row_item[1] </a></p>
+									<p > $row_item[2] </p>
+							</div>
+									
+							<div class='screen_shots'>
+								Screen Shots
+								<!-- Put in code to upload/call screen shots-->
+							</div>
+					</div>";
 			
 			}else{
 				//no package sepecified, just load hte whole thing
@@ -30,7 +48,7 @@
 									<a href='" . general_data::get_root()  . "/packages.php?id=$row_item[0]'><img src='" . general_data::get_root() . "$row_item[7]' alt='$row_item[1] Icon' height='50' width='50' /></a>
 								</td>
 								<td>
-									<table id='package_words'>
+									<table id='package_words' style='width: 600px;'>
 										<tr>
 											<td id='package_title'><a href='" . general_data::get_root() . "/packages.php?id=$row_item[0]'> $row_item[1] </a></td>
 										</tr>
@@ -39,7 +57,7 @@
 										</tr>
 									</table>
 								</td>
-								<td style='padding-left:200%;'>
+								<td style=''>
 									<a href='" . general_data::get_root()  . "/get_package.php?id=$row_item[0]'>Install</a>
 								</td>
 							</table>
