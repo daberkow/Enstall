@@ -6,7 +6,7 @@ using System.Web;
 using System.Text;
 using System.Net;
 
-namespace ETUEtest
+namespace EnstallClient
 {
     class webUtil
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ETUEtest
+namespace EnstallClient
 {
     class ETUEPackage
     {
@@ -17,6 +17,7 @@ namespace ETUEtest
         private String fileVersion = "";        //  Package version
         private String versionCreated = "";     //  ETUEVersion this package .xml was created in
 
+        private String url = "";                //  url that this package was created from
         private String packageTitle = "";       //  The package title listed on the Enstall package list site
 
         //------< Constructors >------//
@@ -55,6 +56,7 @@ namespace ETUEtest
             organization     = package.getOrganization();
             fileVersion      = package.getFileVersion();
             versionCreated   = package.getVersionCreated();
+            url              = package.getURL();
         }
         
         //------< Accessors >------//
@@ -105,6 +107,12 @@ namespace ETUEtest
         public String getVersionCreated()
         {
             return this.versionCreated;
+        }
+
+        //Returns the url
+        public String getURL()
+        {
+            return this.url;
         }
 
         //Returns the package title
@@ -161,6 +169,12 @@ namespace ETUEtest
         public void setVersionCreated(String versionCreated)
         {
             this.versionCreated = versionCreated;
+        }
+
+        //Sets the url of the package
+        public void setURL(String url)
+        {
+            this.url = url;
         }
 
         //Sets the package title

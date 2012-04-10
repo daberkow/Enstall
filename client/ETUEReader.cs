@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 
-namespace ETUEtest
+namespace EnstallClient
 {
     static class ETUEReader
     {
@@ -17,12 +17,22 @@ namespace ETUEtest
                 //Do some basic error checking, make sure this xml is 
                 // of the right format
                 reader.Read();
+                while (reader.Read())
+                {
+                    if (reader.NodeType == XmlNodeType.Element && !(reader.Name.Equals("xml")))
+                    {
+                        break;
+                    }
+                }
                 if ( !reader.Name.Equals("ETUE-Config") )
                 {
                     //If not print an error (TODO: May want to do more here)
                     Console.WriteLine("Error: Not an ETUE package file\n");
                     return pack;
                 }
+
+                //Set the url information
+                pack.setURL(url);
 
                 //Continually read in and fill in the information about the package
                 while (reader.Read())
@@ -69,14 +79,14 @@ namespace ETUEtest
                                 reader.Read();
                                 pack.setVersionCreated(reader.Value);
                                 break;
+                            default:
+                                break;
                         }
                     }
                 }
                 return pack;
             }
         }// parse
-
-
 
     }
 }
