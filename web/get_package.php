@@ -1,50 +1,35 @@
 <?PHP
 	if (isset($_REQUEST['id']))
 	{
-		include("./corepage.php");
+		include("./core.php");
 		database_helper::db_connect();
 		
 		header("Content-type: text/xml; ");
-		header("Content-Disposition: attachment; filename=\"ETUE" . $_REQUEST['id'] . ".xml\""); 
+		//header("Content-Disposition: attachment; filename=\"ETUE" . $_REQUEST['id'] . ".xml\""); 
 		
 		$package_details = database_helper::db_get_package($_REQUEST['id']);
-		if (count($package_details) == 1)
+		//print_r($package_details);
+		if (count($package_details) == 8)
 		{
-			echo "<ETUE-Config>\n";
-			
-			echo "	<Organization>" . general_data::get_organization() . "</Organization>\n";
-			
-			echo "	<Version-of-File>" . $package_details[0][5] . "</Version-of-File>\n";
-			
-			echo "	<ETUE-Version-Created-In>" . general_data::get_version() . "</ETUE-Version-Created-In>\n";
 		
-			echo "	<Software>\n";
+			$xml = new SimpleXMLElement('<xml/>');
+
+			$doc = $xml->addChild('ETUE-Config');
+			$doc->addChild("Organization", general_data::get_organization());
+			$doc->addChild("Version-of-File", $package_details[5]);
+			$doc->addChild("ETUE-Version-Created-In", general_data::get_version());
+			$software = $doc->addChild('Software');
+			$package = $software->addChild('Package');
+			$package->addChild("UID", $package_details[0]);
+			$package->addChild("Title", $package_details[1]);
+			$package->addChild("Description", $package_details[2]);
+			$basic = $package->addChild('Basic');
+			$basic->addChild('script', $package_details[3]);
+			$advanced = $package->addChild('Advanced');
+			$advanced->addChild('script', $package_details[4]);
 			
-			echo "		<Package>\n";
-			
-			echo "			<UID>" . $package_details[0][0] . "</UID>\n";
-			
-			echo "			<Title>" . $package_details[0][1] . "</Title>\n";
-			
-			echo "			<Description>" . $package_details[0][2] . "</Description>\n";
-			
-			echo "			<Basic>\n";
-			
-			echo "				<script>" . $package_details[0][3] . "</script>\n";
-			
-			echo "			</Basic>\n";
-			
-			echo "			<Advanced>\n";
-			
-			echo "				<script>" . $package_details[0][4] . "</script>\n";
-			
-			echo "			</Advanced>\n";
-			
-			echo "		</Package>\n";
-			
-			echo "	</Software>\n";
-			
-			echo "</ETUE-Config>\n";
+			print($xml->asXML());
+
 		}else{
 			echo "Package Retrieval Error";
 		}

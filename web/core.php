@@ -1,13 +1,10 @@
 <?PHP
+
 class general_data {
-	public function get_root()
-	{
-		return "http://127.0.0.1/enstall/";
-	}
 	
 	public function get_organization()
 	{
-		return "Example Code";
+		return "Example Enstall";
 	}
 	
 	public function get_version()
@@ -15,74 +12,6 @@ class general_data {
 		return "0.1";
 	}
 	
-}
-
-class php_draw {
-	public static function page_header()
-	{
-		if ($_SERVER['HTTP_USER_AGENT'] == "Enstall")
-	 	{
-		}else{
-	 		//random browser, load enxtended header	
-	 		echo "<div id='page_header'>
-	 				<h2><a style='color: black; text-decoration: none;' href='" . general_data::get_root() . "/index.php'>Enstall</a></h2><h5 style='margin: 0 0 0 10;'>A simplied installer, because class is hard enough</h5>
-	 			</div>";
-	 	}
-	}
-	
-	public static function page_contentarea_open()
-	{
-		echo "<div id='page_contentarea'>";
-		php_draw::page_sidebar();
-	}
-	
-	public static function page_contentarea_close()
-	{
-		echo "</div>";
-	}
-	
-	public static function page_sidebar()
-	{
-		echo "<div id='page_sidebar'>
-				<span id='sidebar_username'>" . Enstall_Authentication::get_username() . "</span>
-				<hr>
-				<div id='sidebar_settings'>My Settings</div>
-				<hr>
-				<div id='sidebar_recent'>My Recent Packages</div>
-			</div>";
-	}
-
-	public static function page_footer()
-	{
-		echo "<div id='page_footer'>
-				<hr>
-				<div id='page_footer_link'>
-					<a href='" . general_data::get_root() . "admin/add_package.php'>Add New Package</a>
-					<p><a href='" . general_data::get_root() . "packages.php'>Packages</a></p>
-				</div>
-			</div>";
-	}
-
-}
-
-class Enstall_Authentication {
-	public static function isAuthenticated()
-	{
-		//No authentication here
-		return true;
-	}
-	
-	public static function get_username()
-	{
-		//No authentication here
-		if (Enstall_Authentication::isAuthenticated())
-		{
-			return "Test User";
-		}else{
-			return "Login";
-		}
-		
-	}
 }
 
 class database_helper {
@@ -147,5 +76,6 @@ class database_helper {
 		return $result_array;
 	}
 }
+
 
 ?>

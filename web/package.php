@@ -1,3 +1,10 @@
+<?PHP
+	if(!isset($_REQUEST['id']))
+	{
+	  	header("location: index.php");
+	}
+?>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -28,30 +35,42 @@
 	  <hr>
 	  
 	  <div class="row show-grid">
-	  		<div class="span12">
-	  			<div class="row">
-	  				<div class="span4 offset1"><h2>Packages</h2></div>
-	  				<div class='span3 offset2'><a class='btn' href='add_package.php'>Add a New Package</a></div>
+	  		<div class="span8 offset1">
+	  			<div class="row-fluid">
+	  				<div class="span6"><h2>Package</h2></div>
 	  			</div>
 	  		</div>
 	  		<div class="span10 offset1">
 	  		<?PHP
 	  			include("./core.php");
-	  			database_helper::db_connect();
-				$array_data = database_helper::db_get_packages_alp();
-				foreach ($array_data as $row_item)
-				{
-					echo "<hr>";
-					echo "	<div class='row'>
-								<div class='span4 offset1'><h4><a href='package.php?id=$row_item[0]'>$row_item[1]</a></h4></div>
-								<div class='span2 offset7'><a class='btn' href='get_package.php?id=$row_item[0]'>Install</a></div>
-							</div>
-							<div class='row'>
-								<div class='span6 offset2'>$row_item[2]</div>
-							</div>";
-				}
-				database_helper::db_disconnect();
+	  			//select a individual package
+				database_helper::db_connect();
+				$row_item = database_helper::db_get_package($_REQUEST['id']);
+				
+				echo "
+					<div class='span8 offset1'>
+			  			<div class='row-fluid'>
+			  				<div class='span6'><h3>$row_item[1]</h3></div>
+			  			</div>
+			  			<div class='row'>
+			  				<div class='span3'>$row_item[2]</div>
+			  			</div>
+			  			
+			  			<div class='row-fluid'>
+			  				<div class='span3 offset2'>Basic Script</div>
+			  				<div class='span6 offset1'><pre>$row_item[3]</pre></div>
+			  			</div>
+			  			<div class='row-fluid'>
+			  				<div class='span3 offset2'>Advanced Script</div>
+			  				<div class='span6 offset1'><pre>$row_item[4]</pre></div>
+
+			  			</div>
+			  			<div class='row'>
+			  				<div class='span2 offset5'><a class='btn' href='get_package.php?id=$row_item[0]'>Install</a></div>
+			  			</div>
+			  		</div>";
 	  		?>
+	  		</div>
 	  </div>
 	</body>
 </html>
