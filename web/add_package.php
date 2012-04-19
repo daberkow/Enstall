@@ -2,9 +2,12 @@
 
 <html lang="en">
 	<head>
-		<link rel="stylesheet" type="text/css" href="./style.css"/>
 		<link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
-		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript" src="https://www.google.com/jsapi">
+		</script>
+		<script>
+			google.load("jquery", "1.7.1");
+		</script>
 		<script src="./bootstrap/js/bootstrap.js"></script>
 		<title>Enstall Packages</title>
 	</head>
