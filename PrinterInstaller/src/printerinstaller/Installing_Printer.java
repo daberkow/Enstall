@@ -9,7 +9,7 @@ package printerinstaller;
  * @author Dan
  */
 public class Installing_Printer extends javax.swing.JDialog {
-    printercore Core_code = new printercore();
+    printercore Core_code = new printercore(false);
         
     /**
      * Creates new form Installing_Printer

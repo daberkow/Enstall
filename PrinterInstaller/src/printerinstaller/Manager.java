@@ -5,28 +5,17 @@
 package printerinstaller;
 
 import java.awt.Component;
-import java.awt.FileDialog;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.Timer;
 import java.util.TreeSet;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileView;
-import javax.swing.plaf.FileChooserUI;
-import javax.swing.plaf.basic.BasicFileChooserUI;
 
 /**
  *
  * @author Dan
  */
 public class Manager extends javax.swing.JFrame {
-    printercore Core_Code = new printercore();
+    printercore Core_Code = new printercore(false);
     List<PrintServer> Server_stats = new ArrayList<PrintServer>();
     static Component parent = null;
     /**

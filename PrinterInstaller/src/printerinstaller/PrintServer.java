@@ -4,12 +4,14 @@
  */
 package printerinstaller;
 
+import java.net.InetAddress;
+
 /**
  *
  * @author Dan
  */
 public class PrintServer {
-    private java.net.InetAddress Address = null;
+    private java.net.InetAddress[] Address = null;
     private String[] Printers = null;
     private boolean is_connected = false;
     
@@ -19,22 +21,28 @@ public class PrintServer {
         Printers = new String[0];
     }
     
-    public PrintServer(java.net.InetAddress Passed_address, String[] Passed_printers, boolean passed_connected)
+    public PrintServer(java.net.InetAddress[] Passed_address, String[] Passed_printers, boolean passed_connected)
     {
         Address = Passed_address;
         Printers = Passed_printers;
         is_connected = passed_connected;
     }
     
-    public java.net.InetAddress get_address()
+    public java.net.InetAddress[] get_address()
     {
         //if blank constructor is used, then no data is entered this can return null
         return Address;
     }
     
-    public void set_address(java.net.InetAddress passed_address)
+    public void set_address(java.net.InetAddress[] passed_address)
     {
         Address = passed_address;
+    }
+    
+    public void set_address(java.net.InetAddress passed_address)
+    {
+        InetAddress[] temp = {passed_address};
+        Address = temp;
     }
 
     public String[] get_Printers()

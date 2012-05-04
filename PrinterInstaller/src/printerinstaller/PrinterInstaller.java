@@ -6,6 +6,8 @@ package printerinstaller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
+import java.net.InetAddress;
 
 /**
  *
@@ -17,7 +19,7 @@ public class PrinterInstaller {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+                
         String WRITE_BUFFER = "/BUFFER_START/                            /BUFFER_END/";
         
         //This allows a program that is writing to buffer
@@ -41,7 +43,21 @@ public class PrinterInstaller {
         
         if(args.length > 0)
         { //varible was passed
-        
+            if (args[0].equals("export"))
+            {
+                if (args.length > 1)
+                    all_export_printers(args[1]);
+                else
+                    all_export_printers("printers.dson");
+            }else{
+                if (args[0].equals("connect"))
+                {
+                    if (args.length > 1)
+                        Insta_Connect(args[1]);
+                    else
+                        System.out.print("No Printer given after connect");
+                }
+            }
         }else{
             //no printer was given
             //System.out.print("No Printer Given.\n\t Correct format is 'PrinterInstaller.jsp vcpalw'\n");
@@ -50,9 +66,60 @@ public class PrinterInstaller {
         }
     }
     
+    public static void Insta_Connect(String passed_connect)
+    {
+        
+        Insta_connect window = new Insta_connect(null, true, passed_connect);
+        
+    }
+    
+    public static void all_export_printers(String passed_locations)
+    {
+        printercore Core_Code = new printercore(false);
+        String[] Enviroments = new String[1];
+        Enviroments[0] = "ALL";
+        java.net.InetAddress[] Server_Addresses = Core_Code.get_servers(Enviroments);
+        List<PrintServer> Holding_List = new ArrayList<PrintServer>();
+        String[] Credentials = Core_Code.get_credentials();
+        boolean [] Matching_Status = new boolean[Server_Addresses.length];
+        for(int i = 0; i < Server_Addresses.length; i ++)
+        {
+            PrintServer temp_server = new PrintServer();
+            temp_server.set_address(Server_Addresses[i]);
+            //System.out.print(Server_Addresses[i]);
+            Matching_Status[i] = Core_Code.test_server(Server_Addresses[i]);
+            temp_server.set_connected(Matching_Status[i]);
+            //System.out.print(Matching_Status[i] + "\n");
+            String[] Printers = null;
+            if (Matching_Status[i])
+            {
+                //This is the first connection to the servers
+                Printers = Core_Code.get_printers(Server_Addresses[i], Credentials);
+                temp_server.set_Printers(Printers);
+            }
+            //Now we have a list of for this print server and all the pritners on it
+            Holding_List.add(temp_server);
+        }
+        //Stopped her need to write out to a file or a pased in arg
+        System.out.println();
+        
+        try{
+            // Create file 
+            FileWriter fstream = new FileWriter(passed_locations);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(Core_Code.create_DSON(Holding_List.toArray(new PrintServer[0])));
+            //Close the output stream
+            out.close();
+        }catch (Exception e){//Catch exception if any
+            System.err.println("Error: " + e.getMessage());
+        }
+        
+        
+    }
+    
     public static void test_functions()
     {
-        printercore Core_Code = new printercore();
+        printercore Core_Code = new printercore(true);
         List<PrintServer> Server_stats = new ArrayList<PrintServer>();
         String[] Enviroments = Core_Code.scan_enviroment();
         java.net.InetAddress[] Server_Addresses = Core_Code.get_servers(Enviroments);
