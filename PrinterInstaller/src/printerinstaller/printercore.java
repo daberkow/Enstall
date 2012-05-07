@@ -174,19 +174,7 @@ public class printercore {
         }
     }
     
-    //Yeah... The test code isnt testing much right now
-    public boolean test_server(java.net.InetAddress Passed_Address)
-    {
-        boolean found = true;
-
-        /*try{
-            found = Passed_Address.isReachable(1000);
-        }catch(Exception e){
-            System.out.print("AHHH");
-        }*/
-        return found;
-    }
-    
+   
     /**This is code to go to the different servers with credentials passed in and attempt to get a listing of the printers
      * 
      * @param Passed_Address -- address of server
@@ -358,4 +346,51 @@ public class printercore {
         
         return return_string;
     }
+    
+    
+   public int check_server(String passed_server)//0 is nto found, 1 is found with bad connection, 2 is already connected
+   {
+       String[] servers = run_program("net use");
+       for( String s : servers)
+       {
+           if (s.startsWith("OK") && s.contains(passed_server))
+           {
+               return 2;
+           }else{
+               if ( s.contains(passed_server))
+               {
+                   return 1;
+               }
+           }
+       }
+       return 0;
+   }
+   
+   public int check_printer(String passed_server, String passed_printer)
+   {
+       String[] servers = run_program("wmic PRINTER");
+       for( String s : servers)
+       {
+           if (s.contains("\\\\" + passed_server + "\\" + passed_printer))
+           {
+               return 1;
+           }
+       }
+       return 0;
+   }
+   
+   public int connect_server(String passed_server, String[] passed_credentials)
+   {
+       if (enable_Debug) {System.out.println("net use \\\\" + passed_server +" /USER:WIN\\" + passed_credentials[0] + " "); }
+       String[] connection = run_program("net use \\\\" + passed_server +" /USER:WIN\\" + passed_credentials[0] + " " + passed_credentials[1]);
+       //found is false
+       for (String s : connection)
+       {
+           if (s.contains("successful") ||  s.contains("Multiple connections to a server"))
+           {
+               return 1;
+           }
+       }
+       return 0;
+   }
 }

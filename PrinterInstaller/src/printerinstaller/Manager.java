@@ -287,8 +287,7 @@ public class Manager extends javax.swing.JFrame {
             PrintServer temp_server = new PrintServer();
             temp_server.set_address(Server_Addresses[i]);
             temp_string.setText("Processing " +Server_Addresses[i].getHostName());
-            Matching_Status[i] = Core_Code.test_server(Server_Addresses[i]);
-            temp_server.set_connected(Matching_Status[i]);
+            //removed fake check code
             if (Matching_Status[i])
             {
                 //This is the first connection to the servers

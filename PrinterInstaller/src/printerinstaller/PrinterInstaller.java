@@ -68,8 +68,9 @@ public class PrinterInstaller {
     
     public static void Insta_Connect(String passed_connect)
     {
-        
-        Insta_connect window = new Insta_connect(null, true, passed_connect);
+        Insta_Frame windows = new Insta_Frame();
+        windows.setVisible(true);
+        windows.run_connect(passed_connect);
         
     }
     
@@ -87,8 +88,6 @@ public class PrinterInstaller {
             PrintServer temp_server = new PrintServer();
             temp_server.set_address(Server_Addresses[i]);
             //System.out.print(Server_Addresses[i]);
-            Matching_Status[i] = Core_Code.test_server(Server_Addresses[i]);
-            temp_server.set_connected(Matching_Status[i]);
             //System.out.print(Matching_Status[i] + "\n");
             String[] Printers = null;
             if (Matching_Status[i])
@@ -100,7 +99,7 @@ public class PrinterInstaller {
             //Now we have a list of for this print server and all the pritners on it
             Holding_List.add(temp_server);
         }
-        //Stopped her need to write out to a file or a pased in arg
+        
         System.out.println();
         
         try{
@@ -132,8 +131,7 @@ public class PrinterInstaller {
             PrintServer temp_server = new PrintServer();
             temp_server.set_address(Server_Addresses[i]);
             System.out.print(Server_Addresses[i]);
-            Matching_Status[i] = Core_Code.test_server(Server_Addresses[i]);
-            temp_server.set_connected(Matching_Status[i]);
+            //took out fake testing code
             System.out.print(Matching_Status[i] + "\n");
             String[] Printers = null;
             if (Matching_Status[i])

@@ -13,7 +13,8 @@ import java.net.InetAddress;
 public class PrintServer {
     private java.net.InetAddress[] Address = null;
     private String[] Printers = null;
-    private boolean is_connected = false;
+    private int is_connected = 0;
+    private int rank = 0;
     
     public PrintServer()
     {
@@ -21,11 +22,12 @@ public class PrintServer {
         Printers = new String[0];
     }
     
-    public PrintServer(java.net.InetAddress[] Passed_address, String[] Passed_printers, boolean passed_connected)
+    public PrintServer(java.net.InetAddress[] Passed_address, String[] Passed_printers, int passed_connected, int passed_rank)
     {
         Address = Passed_address;
         Printers = Passed_printers;
         is_connected = passed_connected;
+        rank = passed_rank;
     }
     
     public java.net.InetAddress[] get_address()
@@ -55,13 +57,23 @@ public class PrintServer {
         Printers = passed_printers;
     }
     
-    public boolean get_connected()
+    public int get_connected()
     {
         return is_connected;
     }
     
-    public void set_connected(boolean passed_connected)
+    public void set_connected(int passed_connected)
     {
         is_connected = passed_connected;
+    }
+    
+    public int get_rank()
+    {
+        return rank;
+    }
+    
+    public void set_rank(int passed_rank)
+    {
+        rank = passed_rank;
     }
 }
